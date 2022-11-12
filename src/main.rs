@@ -11,10 +11,8 @@ fn main() {
     println!("args {:?}", args);
     let result = std::fs::read_to_string(&args.path);
     let content = match result {
-        Ok(content) => { content },
-        Err(error) => {
-            panic!("Oh noes:: {}", error)
-        }
+        Ok(content) => content,
+        Err(error) => { panic!("Oh noes:: {}", error) }
     };
     println!("file content: {}", content);
     for line in content.lines() {
