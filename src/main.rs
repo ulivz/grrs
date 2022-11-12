@@ -6,13 +6,13 @@ struct Cli {
     path: std::path::PathBuf,
 }
 
-fn main() {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Cli::parse();
     println!("args {:?}", args);
     let result = std::fs::read_to_string(&args.path);
     let content = match result {
         Ok(content) => content,
-        Err(error) => { panic!("Oh noes:: {}", error) }
+        Err(error) => return Err(error.into()),
     };
     println!("file content: {}", content);
     for line in content.lines() {
@@ -20,4 +20,5 @@ fn main() {
             println!("{}", line)
         }
     }
+    Ok(())
 }
