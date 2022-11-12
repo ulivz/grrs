@@ -9,11 +9,7 @@ struct Cli {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Cli::parse();
     println!("args {:?}", args);
-    let result = std::fs::read_to_string(&args.path);
-    let content = match result {
-        Ok(content) => content,
-        Err(error) => return Err(error.into()),
-    };
+    let content = std::fs::read_to_string(&args.path)?;
     println!("file content: {}", content);
     for line in content.lines() {
         if line.contains(&args.pattern) {
