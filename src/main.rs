@@ -10,17 +10,16 @@ fn main() {
     let args = Cli::parse();
     println!("args {:?}", args);
     let result = std::fs::read_to_string(&args.path);
-    match result {
-        Ok(content) => {
-            println!("file content: {}", content);
-            for line in content.lines() {
-                if line.contains(&args.pattern) {
-                    println!("{}", line)
-                }
-            }
-        }
+    let content = match result {
+        Ok(content) => { content },
         Err(error) => {
-            println!("Oh noes:: {}", error)
+            panic!("Oh noes:: {}", error)
+        }
+    };
+    println!("file content: {}", content);
+    for line in content.lines() {
+        if line.contains(&args.pattern) {
+            println!("{}", line)
         }
     }
 }
