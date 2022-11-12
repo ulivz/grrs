@@ -9,10 +9,18 @@ struct Cli {
 fn main() {
     let args = Cli::parse();
     println!("args {:?}", args);
-    let content = std::fs::read_to_string(&args.path).expect("could not read file");
-    for line in content.lines() {
-        if line.contains(&args.pattern) {
-            println!("{}", line);
+    let result = std::fs::read_to_string(&args.path);
+    match result {
+        Ok(content) => {
+            println!("file content: {}", content);
+            for line in content.lines() {
+                if line.contains(&args.pattern) {
+                    println!("{}", line)
+                }
+            }
+        }
+        Err(error) => {
+            println!("Oh noes:: {}", error)
         }
     }
 }
