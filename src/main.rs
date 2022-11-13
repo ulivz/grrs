@@ -1,4 +1,4 @@
-use anyhow::{Result};
+use anyhow::Result;
 
 mod cli;
 mod fs;
