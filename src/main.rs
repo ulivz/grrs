@@ -2,6 +2,7 @@ use anyhow::{Context, Result};
 use clap::Parser;
 
 mod progress;
+mod stdout;
 
 #[derive(Debug, Parser)]
 struct Cli {
@@ -10,7 +11,9 @@ struct Cli {
 }
 
 fn main() -> Result<()> {
-    progress::bar();
+    // progress::bar();
+    stdout::log();
+
     let args = Cli::parse();
     println!("args {:?}", args);
     let content = std::fs::read_to_string(&args.path)

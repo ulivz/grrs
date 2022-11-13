@@ -1,3 +1,5 @@
+#![allow(unused)]
+
 pub fn bar() {
     use indicatif::ProgressBar;
 
