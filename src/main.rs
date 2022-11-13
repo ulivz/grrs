@@ -10,7 +10,7 @@ fn main() -> Result<()> {
     // stdout::log();
     let cli = cli::instance();
     let content = fs::read_file(&cli.path)?;
-    println!("file content: {:?}", content);
+    println!("file content: {}", content);
     for line in content.lines() {
         if line.contains(&cli.pattern) {
             println!("{}", line)
