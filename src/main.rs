@@ -4,6 +4,7 @@ mod cli;
 mod fs;
 mod progress;
 mod stdout;
+mod test;
 
 fn main() -> Result<()> {
     // progress::bar();
