@@ -1,28 +1,21 @@
 use anyhow::{Context, Result};
-use clap::Parser;
 
+mod cli;
+mod fs;
 mod progress;
 mod stdout;
 
-#[derive(Debug, Parser)]
-struct Cli {
-    pattern: String,
-    path: std::path::PathBuf,
-}
-
 fn main() -> Result<()> {
     // progress::bar();
-    stdout::log();
-
-    let args = Cli::parse();
-    println!("args {:?}", args);
-    let content = std::fs::read_to_string(&args.path)
-        .with_context(|| format!("could not read file {}", &args.path.display()))?;
-    println!("file content: {}", content);
+    // stdout::log();
+    let cli = cli::instance();
+    let content = fs::read_file(&cli.path)?;
+    println!("file content: {:?}", content);
     for line in content.lines() {
-        if line.contains(&args.pattern) {
+        if line.contains(&cli.pattern) {
             println!("{}", line)
         }
     }
+
     Ok(())
 }
